@@ -40,9 +40,10 @@ function Edit(props) {
    
    
     async function editFeed(feedid,token,text){
+
         console.log("feedid",feedid)
         let newtext={text}
-        prevtext=text;
+        //prevtext=text;
         let response = await fetch(
           `http://localhost:4000/users/updatefeed/${feedid}`,
           {
@@ -56,7 +57,8 @@ function Edit(props) {
           });
         let result = await response.json();
         console.log("result edited",result)
-        this.props.history.push("/");
+        //this.props.history.push("/about");
+        hist.goBack();
       }
 
 
@@ -77,8 +79,6 @@ return(
         </button>
       </Form>
       
-      {feedid}
-      {text}
     </div>
 )
 }

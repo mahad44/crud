@@ -1,91 +1,5 @@
-.App {
-  text-align: center;
-  margin-top: 10%;
-}
-
-.login{
-  margin-top: 80px;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-#heading{
-  font: italic bold 3.2em "Fira Sans", serif;
-}
-
-.navbar-dark {
-  background-color: #3dd3cc;
-}
-
-#logo{
-  margin-left: 0px;
-}
-
-.navcontainer{
-  padding: 0px;
-}
-
-.navitem{
-  float:left; 
-}
-
-.w-nav-menu {
-  position: relative;
-  float: right;
-}
-
-
-.nav-link{
-  font-size: 28px;
-  display: flex;
-  align-items:flex-start;
-  
-}
-
-.carousel-item > img { 
-  width: 100%; 
-  height:600px;
-}
-
-.postButton{
-  background-color:#3dd3cc;
-}
-
 /***for images on products page***/
-.dFlex, .main_content, .main_content .card, .btn {
+.dFlex, .main_content, .main_content .card, .main_content .card .card_header, .btn {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -113,11 +27,10 @@
 }
 
 .main_content h2 {
-  /**position: absolute;
+  position: absolute;
   left: 0;
-  top: 0;**/
-  margin-left: 50%;
-  color: black;
+  top: 0;
+  color: #fe8033;
   font-size: 10.5vw;
 }
 
@@ -145,7 +58,7 @@
 }
 
 .main_content .card .card_header {
-  color:black;
+  color: #fff;
   margin: 25px 0;
 }
 
@@ -153,21 +66,17 @@
   font-size: 18px;
 }
 
-
 .main_content .card .card_header p {
   font-size: 14px;
   text-align: center;
-  color: black;
+  color: rgba(255, 255, 255, 0.3);
   margin: 8px 0;
 }
 
 .main_content .card .card_header .price {
   font-size: 25px;
   color: #fe8033;
-  
 }
-
-
 
 .main_content .card:hover {
   background-color: #272b34;

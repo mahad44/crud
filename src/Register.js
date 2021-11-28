@@ -7,19 +7,20 @@ import  { Redirect } from 'react-router-dom'
 
 
 function Register() {
-    const[firstName,setFname]=useState("")
-    const[lastName,setLname]=useState("")
-    const[username,setUser]=useState("")
+    const[name,setName]=useState("")
+    const[email,setEmail]=useState("")
+    const[gender,setGender]=useState("")
     const[password,setPassword]=useState("")
     const[message,setMessage]=useState("")
+
 
     let hist=useHistory();
 
 
 
     async function registerUser(){
-      console.warn("data",firstName,lastName,username,password)
-      let item ={firstName,lastName,username,password}
+      console.warn("data",name,email,gender,password)
+      let item ={name,email,gender,password}
       let result=await fetch('http://localhost:4000/users/register',{
         method:'POST',
         headers:{
@@ -46,14 +47,14 @@ function Register() {
     <div className="App">
       <h1>Register</h1>
       <div className="col-sm-6 offset-sm-3">
-     <input type="text" placeholder="First Name" className="form-control"
-     onChange={(e)=>setFname(e.target.value)}/>
+     <input type="text" placeholder="Name" className="form-control"
+     onChange={(e)=>setName(e.target.value)}/>
      <br/>
-     <input type="text" placeholder="Last Name" className="form-control"
-     onChange={(e)=>setLname(e.target.value)}/>
+     <input type="text" placeholder="Email" className="form-control"
+     onChange={(e)=>setEmail(e.target.value)}/>
      <br/>
-     <input type="text" placeholder="User Name" className="form-control"
-     onChange={(e)=>setUser(e.target.value)}/>
+     <input type="text" placeholder="Gender" className="form-control"
+     onChange={(e)=>setGender(e.target.value)}/>
      <br/>
      <input type="password" placeholder="password" className="form-control"
      onChange={(e)=>setPassword(e.target.value)}/>

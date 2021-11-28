@@ -3,6 +3,7 @@ import { useHistory,useLocation } from "react-router-dom";
 import { Navbar, NavbarBrand,Button,ModalFooter} from "reactstrap";
 import Header from "./HeaderComponent";
 import AddFeed from "./AddFeedComponent";
+import Carousel from "./CarouselComponent";
 import ModalComponent from "./EditModalComponent";
 import EdiText from 'react-editext'
 import {
@@ -22,6 +23,7 @@ const About=(props) =>{
   const [feeds, setFeeds] = useState([]);
   const [token, setToken] = useState("");
   const [userid, setUserid] = useState("");
+  const [name, setName] = useState("");
 
   let hist=useHistory();
 
@@ -37,9 +39,13 @@ const About=(props) =>{
       //const userid1 = props.location.state.obj.user_id;
       const userid1 = localStorage.getItem("userid");
       setUserid(userid1);
+
+      const name1 = localStorage.getItem("name");
+      setName(name1);
+      console.log("name:::",name)
     
-      console.log("userid:",userid);
-      console.log("token",token);
+      //console.log("userid:",userid);
+      //console.log("token",token);
 
       let response = await fetch(
         `http://localhost:4000/users/myfeeds/${userid}`,
@@ -54,8 +60,8 @@ const About=(props) =>{
       );
       let result = await response.json();
       setFeeds(result.feed);
-      console.log("result",result)
-      console.warn("received api", feeds);
+     // console.log("result",result)
+     // console.warn("received api", feeds);
      
     }
     fetchFeed();
@@ -63,7 +69,7 @@ const About=(props) =>{
   });
 
   async function deleteFeed(feedid){
-    console.log("feedid",feedid)
+   // console.log("feedid",feedid)
     let response = await fetch(
       `http://localhost:4000/users/deletefeed/${feedid}`,
       {
@@ -76,7 +82,7 @@ const About=(props) =>{
 
       });
     let result = await response.json();
-    console.log("result deleted",result)
+  //  console.log("result deleted",result)
   }
  
   const edit = (id,text) => {
@@ -89,6 +95,7 @@ const About=(props) =>{
   return (
     <div>
       <Header />
+      <Carousel/>
       <AddFeed/>
       <div>
       {feeds.map((item)=>{
@@ -98,6 +105,7 @@ const About=(props) =>{
         <CardBody>
           <CardTitle tag="h5">{item.text}</CardTitle>
           <CardSubtitle className="mb-2 text-muted" tag="h6">
+          {item.name}
           </CardSubtitle>
         </CardBody>
         <img alt="Card image cap" src="logo.jpg" width="100px" height="100px" />
@@ -106,12 +114,12 @@ const About=(props) =>{
           
           </CardText>
           
-          <button onClick={() => edit(item._id,item.text)}>
+          <Button onClick={() => edit(item._id,item.text)}>
             Edit
-          </button>
-          <button type="button" className="secondary" onClick={() => deleteFeed(item._id)}>
+          </Button>
+          <Button color="danger"  onClick={() => deleteFeed(item._id)}>
            Delete
-          </button>
+          </Button>
         </CardBody>
       </Card>
       </div>

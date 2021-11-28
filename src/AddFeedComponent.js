@@ -1,6 +1,9 @@
 import React,{useState,useEffect} from "react";
 import react, { Component } from "react";
 import {
+  Card,
+  CardBody,
+  Button,
   Nav,
   Navbar,
   NavbarBrand,
@@ -24,8 +27,9 @@ function AddFeed() {
     async function postFeed(){
       const token = localStorage.getItem("token");
       const userid = localStorage.getItem("userid");
-
-      let item={userid,text}
+      const name= localStorage.getItem("name");
+     
+      let item={userid,text,name}
 
       let response = await fetch(
         'http://localhost:4000/users/uploadfeed',
@@ -47,13 +51,15 @@ function AddFeed() {
 
   return (
     <div>
+      <Card>
+      <CardBody>
       <Form>
         <FormGroup>
-          <Label for="exampleText">Text Area</Label>
+          <Label for="exampleText">Add Your Post</Label>
           <Input id="exampleText" name="text" type="textarea" 
           onChange={(e)=>setText(e.target.value)} />
         </FormGroup>
-        <button
+        <button className="postButton"
           onClick={() => {
            postFeed();
           }}
@@ -61,6 +67,8 @@ function AddFeed() {
           <a>Post</a>
         </button>
       </Form>
+      </CardBody>
+      </Card>
     </div>
   );
 }

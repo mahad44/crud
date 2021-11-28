@@ -43,6 +43,8 @@ import  { Redirect } from 'react-router-dom'
     // this.props.history.push("/about")
     localStorage.setItem('token',result.token);
     localStorage.setItem('userid',result.user_id);
+    localStorage.setItem('name',result.name);
+    console.log("password",password)
     hist.push({ pathname:'/about', state: {obj:result} });
      //break;
     }

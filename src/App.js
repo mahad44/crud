@@ -1,8 +1,10 @@
 import './App.css';
+//import './style.css';
 import About from './About.js';
 import Login from './Login.js';
 import Register from './Register.js';
 import Edit from './Edit.js';
+import Products from './Products.js';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import React, {useState,useEffect} from 'react';
 import { useHistory } from 'react-router-dom';
@@ -19,6 +21,7 @@ function App() {
     <Route path={"/about"} component={About} />
     <Route path={"/edit"} component={Edit} />
     <Route path={"/register"} component={Register} />
+    <Route path={"/products"} component={Products} />
   </Switch>
 </BrowserRouter>
 </div>

@@ -26,33 +26,22 @@ class Header extends Component {
           <Collapse isOpen={this.state.isNavOpen} navbar>
           <Nav navbar className="item mr-auto nav-bar w-nav-menu">
             <NavItem>
-                <NavLink className="nav-link" to="/home"><span className="fa fa-home fa-lg"></span>Home</NavLink>
+                <NavLink className="nav-link" to="/about"><span className="fa fa-home fa-lg"></span>Home</NavLink>
             </NavItem>
             <NavItem>
-                <NavLink className="nav-link" to="/aboutus"><span className="fa fa-info fa-lg"></span>About Us</NavLink>
+                <NavLink className="nav-link" to="#"><span className="fa fa-info fa-lg"></span>About Us</NavLink>
             </NavItem>
             <NavItem>
-                <NavLink className="nav-link" to="/menu"><span className="fa fa-list fa-lg"></span>Menu</NavLink>
+                <NavLink className="nav-link" to="/products"><span className="fa fa-list fa-lg"></span>Products</NavLink>
             </NavItem>
             <NavItem>
-                <NavLink className="nav-link" to="/contactus"><span className="fa fa-address-card fa-lg"></span>Contact Us</NavLink>
+                <NavLink className="nav-link" to="#"><span className="fa fa-address-card fa-lg"></span>Contact Us</NavLink>
             </NavItem>
           </Nav>
           </Collapse>
           </div>
         </Navbar>
-        <Jumbotron>
-          <div className="container">
-            <div className="row row-header">
-              <div className="col-12 col-sm-6">
-                <h1>Connecting Products with people</h1>
-                <p>
-                lorem ipsum
-                </p>
-              </div>
-            </div>
-          </div>
-        </Jumbotron>
+        
       </React.Fragment>
     );
   }
