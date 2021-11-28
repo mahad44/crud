@@ -116,7 +116,8 @@
   /**position: absolute;
   left: 0;
   top: 0;**/
-  margin-left: 50%;
+    text-align: center;
+
   color: black;
   font-size: 10.5vw;
 }
@@ -150,44 +151,50 @@
 }
 
 .main_content .card .card_header h2 {
-  font-size: 18px;
+  font-size: 28px;
 }
 
 
 .main_content .card .card_header p {
-  font-size: 14px;
+  font-size: 24px;
   text-align: center;
   color: black;
   margin: 8px 0;
 }
 
+.pagination{
+  text-align:center;
+  margin: auto;
+  color:black;
+}
+
 .main_content .card .card_header .price {
   font-size: 25px;
-  color: #fe8033;
+  color: black;
   
 }
 
 
 
 .main_content .card:hover {
-  background-color: #272b34;
+  background-color: #C5C5C5;
   -webkit-transform: scale(1.1);
           transform: scale(1.1);
   cursor: pointer;
 }
 
 .main_content .card:hover .btn {
-  background-color: #fe8033;
+  background-color: #3dd3cc;
   color: #fff;
 }
 
 .btn {
   width: 130px;
   height: 35px;
-  font-size: 14px;
+  font-size: 24px;
   border-radius: 35px;
-  background-color: #2d343e;
-  color: rgba(255, 255, 255, 0.5);
+  background-color:#C5C5C5 ;
+  color: black;
   cursor: pointer;
   position: relative;
   -webkit-transition: background-color .3s ease;

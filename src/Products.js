@@ -1,6 +1,7 @@
-import React, { useState, useEffect, Component } from "react";
+import React, { useState, useEffect, Component,Link } from "react";
 import { useHistory,useLocation } from "react-router-dom";
-import { Navbar, NavbarBrand,Button,ModalFooter} from "reactstrap";
+import PaginationComponent from "react-reactstrap-pagination";
+import { Navbar, NavbarBrand,Button,ModalFooter,Pagination,PaginationItem,PaginationLink} from "reactstrap";
 import Header from "./HeaderComponent";
 import AddFeed from "./AddFeedComponent";
 import Carousel from "./CarouselComponent";
@@ -20,15 +21,18 @@ import {
 } from "reactstrap";
 
 const Products=(props) =>{
+  const [currentPage, setCurrentPage] = useState(1);
   const [products, setProducts] = useState([]);
   const [token, setToken] = useState("");
+  const [pager, setPage] = useState([]);
+
   const [userid, setUserid] = useState("");
   const [name, setName] = useState("");
 
   let hist=useHistory();
 
 
-
+ let PageSize=3
   useEffect(() => {
     async function fetchProducts() {
     
@@ -43,7 +47,7 @@ const Products=(props) =>{
       //console.log("token",token);
 
       let response = await fetch(
-        `http://localhost:4000/users/allproducts`,
+        `http://localhost:4000/users/allproducts/${currentPage}`,
         {
           method: "GET",
           headers: {
@@ -63,6 +67,10 @@ const Products=(props) =>{
     
   });
 
+  function handleSelected(selectedPage) {
+    console.log("selected", selectedPage);
+    setCurrentPage(selectedPage );
+  };
   
 
   return (
@@ -80,14 +88,22 @@ const Products=(props) =>{
             <div className="card_header">
               <h2 className="productname">{item.productname}</h2>
               <p>{item.category}</p>
-              <p className="price">${item.price}</p>
-           <div className="btn">Add to Cart</div>
+              <p className="price"><b>${item.price}</b></p>
+           <div className="btn">View Details</div>
             </div>
           </div>
    )
 })}
-     
       </div>
+      <div className="pagination">
+      <PaginationComponent
+          totalItems={50}
+          pageSize={4}
+          onSelect={handleSelected}
+          maxPaginationNumbers={9}
+          defaultActivePage={10}
+        />
+        </div>
     </div>
   );
 }
