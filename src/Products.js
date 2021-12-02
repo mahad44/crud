@@ -25,10 +25,11 @@ const Products=(props) =>{
   const [products, setProducts] = useState([]);
   const [token, setToken] = useState("");
   const [pager, setPage] = useState([]);
-
   const [userid, setUserid] = useState("");
   const [name, setName] = useState("");
+  
 
+  
   let hist=useHistory();
 
 
@@ -71,6 +72,12 @@ const Products=(props) =>{
     console.log("selected", selectedPage);
     setCurrentPage(selectedPage );
   };
+
+  function details(item){
+  hist.push('/productdetail',item);
+  //hist.push({ pathname:'/productdetail'});
+  //console.warn("item:",item);
+  }
   
 
   return (
@@ -89,7 +96,7 @@ const Products=(props) =>{
               <h2 className="productname">{item.productname}</h2>
               <p>{item.category}</p>
               <p className="price"><b>${item.price}</b></p>
-           <div className="btn">View Details</div>
+           <button className="btn" onClick={()=>details(item)}>View Details</button>
             </div>
           </div>
    )
