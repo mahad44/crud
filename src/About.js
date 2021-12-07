@@ -98,7 +98,7 @@ const About=(props) =>{
       <Carousel/>
       <AddFeed/>
       <div>
-      {feeds.map((item)=>{
+      {feeds && feeds.map((item)=>{
         return(
           <div>
       <Card key={item.id} >

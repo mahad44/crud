@@ -29,10 +29,10 @@ function AddFeed() {
       const userid = localStorage.getItem("userid");
       const name= localStorage.getItem("name");
      
-      let item={userid,text,name}
+      let item={text,name}
 
       let response = await fetch(
-        'http://localhost:4000/users/uploadfeed',
+        `http://localhost:4000/users/uploadfeed/${userid}`,
         {
           method: "POST",
           headers: {

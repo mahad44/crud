@@ -21,22 +21,52 @@ import {
 } from "reactstrap";
 
 const Poductdetail=(props) =>{
-    const [value, setValue] = useState(0);
+    const [value, setValue] = useState(1);
     const location = useLocation();
 
-    const item = props.location.state;
+    //const item = props.location.state;
+    const item =JSON.parse(localStorage.getItem("item"));
+    console.log("product",item)
+    let hist = useHistory();
+
 
 
 /**  useEffect(() => {
   }**/
   
-  function increment() {
-    setValue(value+1);
+  function increment(quantity) {
+    console.log("quantity",quantity)
+    if(value<quantity){
+    setValue(value+1);}
   }
 
   function decrement() {
-    setValue(value-1);
+    if(value>1){
+    setValue(value-1);}
 }
+
+
+async function AddtoCart() {
+  const userid = localStorage.getItem("userid");
+  const token = localStorage.getItem("token");
+
+  let response=await fetch(`http://localhost:4000/users/addtocart?userid=${userid}&quantity=${value}`,{
+    method:'POST',
+    headers:{
+      "Content-Type":"application/json",
+      Authorization: `Bearer ${token}`,
+      "Accept":"application/json"
+    },
+  });
+  let result=await response.json();
+  
+
+  hist.push('/about');
+  
+
+
+}
+
 
 
   return (
@@ -63,9 +93,12 @@ const Poductdetail=(props) =>{
                             <div class="mb-3">
                             <h6>Short description</h6>
                             </div>
+
                             <div class="mb-3">
                                     <var class="price h4">${item.price}</var> <br />
                                 </div> 
+                                {item.quantity>0?  <div>{item.quantity}
+
                                 <p>
                              Set the quantity
                                 </p>
@@ -74,14 +107,16 @@ const Poductdetail=(props) =>{
                                      &mdash;
                                 </button>
                                  <input className="quantity-input__screen" type="text" value={value} readonly />
-                             <button className="quantity-input__modifier quantity-input__modifier--right" onClick={increment}>
+                             <button className="quantity-input__modifier quantity-input__modifier--right" onClick={()=>increment(item.quantity)}>
                                 &#xff0b;
                              </button>  
                                   </div>  
                                     <br></br>
                                 <div class="mb-4">
-                                    <a href="#" class="btn btn-primary mr-1">Add to cart</a>
+                                    <a href="#" class="btn btn-primary mr-1" onClick={()=>AddtoCart()}>Add to cart</a>
                                 </div>
+                                </div>
+                                : <h5>Out of Stock</h5>}
                             </article> 
                             </main>     
                         </div> 

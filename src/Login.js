@@ -41,9 +41,9 @@ import  { Redirect } from 'react-router-dom'
      //<Redirect to="/about"/>;
      
     // this.props.history.push("/about")
-    localStorage.setItem('token',result.token);
-    localStorage.setItem('userid',result.user_id);
-    localStorage.setItem('name',result.name);
+    localStorage.setItem('token',result.data.token);
+    localStorage.setItem('userid',result.data.user_id);
+    localStorage.setItem('name',result.data.name);
     console.log("password",password)
     hist.push({ pathname:'/about', state: {obj:result} });
      //break;
