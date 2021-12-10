@@ -222,3 +222,28 @@
   margin-right: 10px;
 }
 
+
+.total{
+  margin: auto;
+  width:600px;
+  height:150px;
+}
+
+.totalContent{
+  margin:auto;
+  margin-top: 5%;
+}
+
+.totalpice{
+  color:#3556c0;
+}
+
+.cartproceed{
+  margin-left:10%;
+  margin-top: 3%;
+  height:50px;
+}
+
+.creditcard{
+  align-items: center;
+}

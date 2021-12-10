@@ -50,7 +50,7 @@ async function AddtoCart() {
   const userid = localStorage.getItem("userid");
   const token = localStorage.getItem("token");
 
-  let response=await fetch(`http://localhost:4000/users/addtocart?userid=${userid}&quantity=${value}`,{
+  let response=await fetch(`http://localhost:4000/users/addtocart?userid=${userid}&quantity=${value}&product=${item._id}&price=${item.price}&name=${item.productname}`,{
     method:'POST',
     headers:{
       "Content-Type":"application/json",
@@ -61,7 +61,7 @@ async function AddtoCart() {
   let result=await response.json();
   
 
-  hist.push('/about');
+  hist.push('/products');
   
 
 
@@ -88,7 +88,7 @@ async function AddtoCart() {
                           </aside>   
                           <main class="col-md-6">
                             <article>
-                            <h6>Clothes</h6>
+                            <h6>{item.category}</h6>
                             <h3 class="title">{item.productname}</h3>
                             <div class="mb-3">
                             <h6>Short description</h6>

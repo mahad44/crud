@@ -5,9 +5,11 @@ import Login from './Login.js';
 import Register from './Register.js';
 import Addproducts from './Addproducts.js';
 import Productdetail from './Productdetail';
+import Cart from './cart';
 import Edit from './Edit.js';
 import Products from './Products.js';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import 'react-credit-cards/es/styles-compiled.css';
 import React, {useState,useEffect} from 'react';
 import { useHistory } from 'react-router-dom';
 import { BrowserRouter , Route, Link, Switch,Redirect} from "react-router-dom";
@@ -26,6 +28,8 @@ function App() {
     <Route path={"/products"} component={Products} />
     <Route path={"/addproducts"} component={Addproducts} />
     <Route path={"/productdetail"} component={Productdetail} />
+    <Route path={"/cart"} component={Cart} />
+
 
   </Switch>
 </BrowserRouter>
