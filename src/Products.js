@@ -75,7 +75,7 @@ const Products = (props) => {
       console.warn("received api", products);
     }
     fetchProducts();
-  }, [currentPage]);
+  },[currentPage]);
 
   function handleSelected(selectedPage) {
     console.log("selected", selectedPage);
@@ -200,7 +200,7 @@ const Products = (props) => {
           pageSize={4}
           onSelect={handleSelected}
           maxPaginationNumbers={9}
-          defaultActivePage={2}
+          defaultActivePage={1}
         />
       </div>
     </div>

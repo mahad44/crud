@@ -15,6 +15,7 @@
     "react-editext": "^4.2.1",
     "react-popper": "^0.9.2",
     "react-reactstrap-pagination": "^2.0.3",
+    "react-rounded-image": "^2.0.13",
     "react-router-dom": "^5.3.0",
     "react-scripts": "4.0.3",
     "reactstrap": "^5.0.0",

@@ -116,7 +116,7 @@ function removeProduct(cart){
         let id=cart.product;
         let quantity=cart.quantity;
         let item={quantity}
-       // checkoutAll(id,item,cart._id);
+        checkoutAll(id,item,cart._id);
        //setProduct(cart.id);
        product=cart._id;
        console.log("product",product)

@@ -7,7 +7,9 @@ import Addproducts from './Addproducts.js';
 import Productdetail from './Productdetail';
 import Cart from './cart';
 import Edit from './Edit.js';
+import EditProfile from './EditProfile.js';
 import Products from './Products.js';
+import Profile from './Profile.js';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'react-credit-cards/es/styles-compiled.css';
 import React, {useState,useEffect} from 'react';
@@ -24,10 +26,12 @@ function App() {
   <Route path={"/"} exact component={Login} />
     <Route path={"/about"} component={About} />
     <Route path={"/edit"} component={Edit} />
+    <Route path={"/editprofile"} component={EditProfile} />
     <Route path={"/register"} component={Register} />
     <Route path={"/products"} component={Products} />
     <Route path={"/addproducts"} component={Addproducts} />
     <Route path={"/productdetail"} component={Productdetail} />
+    <Route path={"/profile"} component={Profile} />
     <Route path={"/cart"} component={Cart} />
 
 
