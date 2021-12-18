@@ -20,7 +20,7 @@ import {
   BreadcrumbItem,
 } from "reactstrap";
 
-const Addproducts=(props) =>{
+const Editproducts=(props) =>{
   const [products, setProducts] = useState([]);
   const [token1, setToken] = useState("");
   const [userid, setUserid] = useState("");
@@ -33,13 +33,19 @@ const Addproducts=(props) =>{
   const [productcategory, setProductcategory]= useState("");
   const [quantity, setQuantity]= useState("");
 
+  const item=props.location.item;   
+ 
+
+
 
   let hist=useHistory();
 
   const useridtoken=localStorage.getItem("userid");
   const token=localStorage.getItem("token");
+  useEffect(() => {
+        
+})
 
- console.log(useridtoken);
   const handleFileInputChange = (e) =>  {
     const file = e.target.files[0];
     previewFile(file);
@@ -56,21 +62,23 @@ const Addproducts=(props) =>{
   const handleSubmitFile = (e) => {
     console.log("submitting");
     if(!previewSource) return;
-     else {uploadImage(previewSource);
-      hist.goBack();
-      <Redirect to='/profile' />;}
+   uploadImage(previewSource);
+     
     
   }
 
   const uploadImage = async (base64EncodedImage) => {
-     console.log(base64EncodedImage);
-     console.log(useridtoken);
+    const token=localStorage.getItem("token");
+    const item=localStorage.getItem("item");
+
+    console.log("item: ",item._id)
+     
      try{
-       await fetch(`http://localhost:4000/users/addproduct/${useridtoken}`, {
-         method : 'POST',
-         body: JSON.stringify({data : base64EncodedImage, prodname: productname, 
-          prodprice : productprice,
-          prodcategory: productcategory,quantity:quantity}),
+       await fetch(`http://localhost:4000/users/editproduct/61be3a166a9d0a860e3a4963`, {
+         method : 'PUT',
+         body: JSON.stringify({data : base64EncodedImage, productname: productname, 
+          price : productprice,
+          category: productcategory,quantity:quantity}),
          headers: {'Content-type': 'application/json',
          Authorization: `Bearer ${token}`,
          Accept: "application/json",
@@ -80,8 +88,8 @@ const Addproducts=(props) =>{
        console.error(error);
      }
      console.log("product added");
+     hist.push("/profile");
      <Redirect to='/profile' />;
-     hist.goBack();
   }
   
   return (
@@ -99,16 +107,19 @@ const Addproducts=(props) =>{
 
     <div className="col-sm-8">
       <div className="create">
-        <h1>Add Product</h1>
+        <h1>Edit Product</h1>
         <form onSubmit={()=>handleSubmitFile()} className="form">
           <label>Product Name</label>
           <input type="text" 
           name="productname" 
+          placeholder={item && item.productname}
           value={productname} 
           onChange= {(e) => setProductname(e.target.value)}/>
+
           <label>Price </label>
           <input type="number" 
           name="price" 
+          placeholder={item && item.price}
           min="0"
           value = {productprice}
           onChange={(e) => setProductprice(e.target.value)}/>
@@ -116,6 +127,7 @@ const Addproducts=(props) =>{
         <label>Quantity </label>
           <input type="number" 
           name="quantity" 
+          placeholder={item && item.quantity}
           min="0"
           value = {quantity}
           onChange={(e) => setQuantity(e.target.value)}/>
@@ -132,7 +144,7 @@ const Addproducts=(props) =>{
           </select> 
           <input type="file" name="image" onChange={handleFileInputChange}
           value={fileInputState} className="form-input"/>
-          <button className="btn" type="submit">Submit</button>
+          <a className="btn btn-success mr-1" onClick={()=>handleSubmitFile()}>Submit</a>
         </form>
       </div>
       </div>
@@ -145,4 +157,4 @@ const Addproducts=(props) =>{
   );
 }
 
-export default Addproducts;
+export default Editproducts;

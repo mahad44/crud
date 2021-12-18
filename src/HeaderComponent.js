@@ -35,7 +35,7 @@ class Header extends Component {
                 <NavLink className="nav-link" to="/cart"><span className="fa fa-shopping-cart fa-lg align-right shoppingcart"></span>Cart</NavLink>
             </NavItem>
             <NavItem>
-                <NavLink className="nav-link" to="/profile"><span className="fa fa-user fa-lg align-right shoppingcart"></span>My Profile</NavLink>
+                <NavLink className="nav-link" to="/profile"><span className="fa fa-user fa-lg "></span>My Profile</NavLink>
             </NavItem>
           </Nav>
           </Collapse>

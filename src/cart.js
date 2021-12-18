@@ -36,8 +36,8 @@ function Cart() {
   //const [total, setTotal] = useState(0);
   const [boolean, setBoolean] = useState(false);
   const [checkoutboolean, setCheckoutboolean] = useState(false);
- // const [product, setProduct] = useState();
-  let product;
+  const [cartproduct, setCartproduct] = useState();
+  let product=0;
  let total=0;
 
   useEffect(() => {
@@ -68,10 +68,10 @@ function Cart() {
 
   async function remove() {
 
+    console.log("cart",product)
     const token = localStorage.getItem("token");
-
     let response = await fetch(
-      `http://localhost:4000/users//deletecart/${product}`,
+      `http://localhost:4000/users//deletecart/${cartproduct}`,
       {
         method: "DELETE",
         headers: {
@@ -88,7 +88,7 @@ function Cart() {
 
 function removeProduct(cart){
   //setProduct(cart);
-  product=cart;
+  setCartproduct(cart);
   noRefCheck()
 }
 
@@ -179,7 +179,7 @@ function removeProduct(cart){
                   Are you sure you want to remove this product?
                 </ModalBody>
                 <ModalFooter>
-                  <Button color="danger" onClick={()=> remove() }>
+                  <Button color="danger" onClick={()=> remove()}>
                     Remove
                   </Button>{" "}
                   <Button onClick={()=> noRefCheck()}>Cancel</Button>

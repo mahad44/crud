@@ -5,6 +5,8 @@ import Login from './Login.js';
 import Register from './Register.js';
 import Addproducts from './Addproducts.js';
 import Productdetail from './Productdetail';
+import Editproducts from './EditProduct';
+import Productdetailprofile from './Productdetailprofile';
 import Cart from './cart';
 import Edit from './Edit.js';
 import EditProfile from './EditProfile.js';
@@ -31,7 +33,9 @@ function App() {
     <Route path={"/products"} component={Products} />
     <Route path={"/addproducts"} component={Addproducts} />
     <Route path={"/productdetail"} component={Productdetail} />
-    <Route path={"/profile"} component={Profile} />
+    <Route path={"/editproduct"} component={Editproducts} />
+    <Route path={"/productdetailprofile"} component={Productdetailprofile} />
+    <Route path={"/profile"} exact component={Profile} />
     <Route path={"/cart"} component={Cart} />
 
 
