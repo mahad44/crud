@@ -1,9 +1,8 @@
 import React, { useState, useEffect, Component,Link } from "react";
 import { useHistory,useLocation } from "react-router-dom";
 import PaginationComponent from "react-reactstrap-pagination";
-import { Navbar, NavbarBrand,Button,ModalFooter,Pagination,PaginationItem,PaginationLink} from "reactstrap";
+import { Navbar, NavbarBrand,Button,Pagination,PaginationItem,PaginationLink} from "reactstrap";
 import Header from "./HeaderComponent";
-import AddFeed from "./AddFeedComponent";
 import Carousel from "./CarouselComponent";
 import ModalComponent from "./EditModalComponent";
 import EdiText from 'react-editext'
@@ -14,6 +13,10 @@ import {
   CardSubtitle,
   CardLink,
   CardText,
+  Modal,
+  ModalHeader,
+  ModalBody,
+  ModalFooter,
   CardBody,
   CardTitle,
   Breadcrumb,
@@ -23,6 +26,7 @@ import {
 const Poductdetail=(props) =>{
     const [value, setValue] = useState(1);
     const location = useLocation();
+    const [boolean, setBoolean] = useState(false);
 
     //const item = props.location.state;
     const item =JSON.parse(localStorage.getItem("item"));
@@ -47,6 +51,9 @@ const Poductdetail=(props) =>{
 
 
 async function AddtoCart() {
+
+  if(localStorage.getItem("isAuthenticated")==null)setBoolean(!boolean)
+  else{
   const userid = localStorage.getItem("userid");
   const token = localStorage.getItem("token");
 
@@ -62,9 +69,15 @@ async function AddtoCart() {
   
 
   hist.push('/products');
-  
+}
+}
 
+function noRefCheck(){
+  setBoolean(!boolean)
+}
 
+function login(){
+  hist.push("/login")
 }
 
 
@@ -118,7 +131,22 @@ async function AddtoCart() {
                                 </div>
                                 : <h5>Out of Stock</h5>}
                             </article> 
-                            </main>     
+                            </main>  
+                            <Modal isOpen={boolean} toggle={function noRefCheck() {}}>
+                <ModalHeader toggle={()=> noRefCheck()}>
+                  Login Prompt
+                </ModalHeader>
+                <ModalBody>
+                  You will need to log in first!
+                  </ModalBody>
+                <ModalFooter>
+                  <Button color="success" onClick={()=>login()}>
+                    Login
+                  </Button>{" "}
+                  <Button onClick={()=> noRefCheck()}>Cancel</Button>
+                </ModalFooter>
+              </Modal>
+
                         </div> 
                     </div>
                </article>

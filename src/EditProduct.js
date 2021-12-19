@@ -3,7 +3,6 @@ import './Products.css';
 import { useHistory,useLocation,Redirect} from "react-router-dom";
 import { Navbar, NavbarBrand,Button,ModalFooter} from "reactstrap";
 import Header from "./HeaderComponent";
-import AddFeed from "./AddFeedComponent";
 import Carousel from "./CarouselComponent";
 import ModalComponent from "./EditModalComponent";
 import EdiText from 'react-editext'
@@ -61,7 +60,7 @@ const Editproducts=(props) =>{
 
   const handleSubmitFile = (e) => {
     console.log("submitting");
-    if(!previewSource) return;
+    //if(!previewSource) return;
    uploadImage(previewSource);
      
     
@@ -69,12 +68,12 @@ const Editproducts=(props) =>{
 
   const uploadImage = async (base64EncodedImage) => {
     const token=localStorage.getItem("token");
-    const item=localStorage.getItem("item");
+  //  const item=localStorage.getItem("item");
 
     console.log("item: ",item._id)
      
      try{
-       await fetch(`http://localhost:4000/users/editproduct/61be3a166a9d0a860e3a4963`, {
+       await fetch(`http://localhost:4000/users/editproduct/${item._id}`, {
          method : 'PUT',
          body: JSON.stringify({data : base64EncodedImage, productname: productname, 
           price : productprice,
@@ -89,7 +88,7 @@ const Editproducts=(props) =>{
      }
      console.log("product added");
      hist.push("/profile");
-     <Redirect to='/profile' />;
+     //<Redirect to='/profile' />;
   }
   
   return (

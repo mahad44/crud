@@ -2,7 +2,9 @@ import React, { useState, useEffect, Component } from "react";
 import { useHistory,useLocation } from "react-router-dom";
 import { Navbar, NavbarBrand,Button,ModalFooter} from "reactstrap";
 import Header from "./HeaderComponent";
-import AddFeed from "./AddFeedComponent";
+import FeedComponent from "./FeedComponent";
+import AddFeed from "./AddFeed";
+
 import Carousel from "./CarouselComponent";
 import ModalComponent from "./EditModalComponent";
 import EdiText from 'react-editext'
@@ -96,7 +98,7 @@ const About=(props) =>{
     <div>
       <Header />
       <Carousel/>
-      <AddFeed/>
+      <FeedComponent/>
       <div>
       {feeds && feeds.map((item)=>{
         return(

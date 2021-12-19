@@ -4,6 +4,7 @@ import Header from "./HeaderComponent";
 import ReactRoundedImage from "react-rounded-image";
 import "bootstrap/dist/css/bootstrap.min.css";
 import React, { useState, useEffect } from "react";
+import PaginationComponent from "react-reactstrap-pagination";
 import { useHistory, withRouter, useLocation } from "react-router-dom";
 import { Redirect, Link } from "react-router-dom";
 import {
@@ -26,6 +27,10 @@ function Profile() {
   const [token, setToken] = useState("");
   const [user, setUser] = useState();
   const [products, setProducts] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [searchtext, setSearchtext] = useState("");
+
+
   let hist = useHistory();
 
   useEffect(() => {
@@ -35,7 +40,7 @@ function Profile() {
 
     async function fetchProducts() {
       let response = await fetch(
-        `http://localhost:4000/users/myproducts/${userid}`,
+        `http://localhost:4000/users/myproducts/${userid}?page=${currentPage}`,
         {
           method: "GET",
           headers: {
@@ -47,7 +52,7 @@ function Profile() {
       );
       let result = await response.json();
       setProducts(result.listofproducts);
-      console.log("results", result.listofproducts);
+      //console.log("results", result.listofproducts);
     }
 
     async function fetchUser() {
@@ -70,7 +75,35 @@ function Profile() {
 
     fetchUser();
     fetchProducts();
-  });
+  },[currentPage]);
+
+  async function search() {
+    /**  setBoolean(
+       category.filter((cat) =>
+         cat.toLowerCase().includes(searchtext.toLowerCase())
+       )
+     );**/
+     const userid = localStorage.getItem("userid");
+     let response = await fetch(
+      `http://localhost:4000/users/myproducts/${userid}?search=${searchtext}`,
+      {
+         method: "GET",
+         headers: {
+           "Content-Type": "application/json",
+           Authorization: `Bearer ${token}`,
+           Accept: "application/json",
+         },
+       }
+     );
+     let result = await response.json();
+     console.log("searchresult",result)
+     setProducts(result.listofproducts);
+   }
+ 
+
+  function handleSelected(selectedPage) {
+    setCurrentPage(selectedPage);
+  }
 
   function details(item) {
     localStorage.setItem("item", JSON.stringify(item));
@@ -78,6 +111,10 @@ function Profile() {
   }
   function addproduct() {
     hist.push("/addproducts");
+  }
+
+  function addfeed() {
+    hist.push("/addfeed");
   }
 
   return (
@@ -115,8 +152,30 @@ function Profile() {
 
       <div className="d-flex justify-content-center">
       
-              <a class="btn btn-primary mr-1" onClick={()=>addproduct()}>Add Product</a>
+              <a class="btn btn-primary mr-1" onClick={()=>addproduct()}> Add Product</a>
+              <a class="btn btn-primary mr-1" onClick={()=>addfeed()}> Add Feed</a>
+
       </div>
+
+      <div class="search col-lg-3 col-sm-3 d-flex justify-content-end">
+      <div class="input-group w-100">
+          <input
+            type="text"
+            class="form-control"
+            placeholder="Search"
+            onChange={(e) => setSearchtext(e.target.value)}
+          />
+          </div>
+          <div class="input-group-append">
+          <button
+              class="btn btn-primary"
+              type="button"
+              onClick={() => search()}
+            >
+              <i class="fa fa-search"></i>
+            </button>
+          </div>
+          </div>
 
       <div className="main_content">
         {products &&
@@ -140,6 +199,15 @@ function Profile() {
               </div>
             );
           })}
+      </div>
+      <div className="pagination">
+        <PaginationComponent
+          totalItems={50}
+          pageSize={4}
+          onSelect={handleSelected}
+          maxPaginationNumbers={9}
+          defaultActivePage={1}
+        />
       </div>
     </div>
   );

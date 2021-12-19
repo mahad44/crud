@@ -1,4 +1,5 @@
 import './App.css';
+import Header from "./HeaderComponent";
 import About from './About.js';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import React, {useState,useEffect} from 'react';
@@ -44,8 +45,9 @@ import  { Redirect } from 'react-router-dom'
     localStorage.setItem('token',result.data.token);
     localStorage.setItem('userid',result.data.user_id);
     localStorage.setItem('name',result.data.name);
+    localStorage.setItem('isAuthenticated',"True");
     console.log("password",password)
-    hist.push({ pathname:'/about', state: {obj:result} });
+    hist.push({ pathname:'/', state: {obj:result} });
      //break;
     }
   //}
@@ -56,6 +58,19 @@ import  { Redirect } from 'react-router-dom'
 }
 
   return (
+    <div>
+      <Header/>
+    <br></br>
+    <br></br>
+    <div className="container-fluid">
+    <div className="row">
+
+    <div className="col-sm-4 ">
+      <br></br>
+      <img className="loginImage" src="/login.JPG"/>
+    </div>
+    
+    <div className="col-sm-8">
     <div className="App">
       <h1 id="heading">Connecting People with Products</h1>
       <br>
@@ -72,7 +87,11 @@ import  { Redirect } from 'react-router-dom'
      <h6> {message}</h6>
     <h5>Don't have an account? then  <a href="/register">Register</a></h5>
     </div>
-   
+   </div>
+
+    </div>
+    </div>
+    </div>
     </div>
   );
   }

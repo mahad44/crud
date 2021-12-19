@@ -20,7 +20,7 @@ import {
 } from "reactstrap";
 import { NavLink } from "react-router-dom";
 
-function AddFeed() {
+function FeedComponent() {
   const[text,setText]=useState("")
 
   
@@ -73,4 +73,4 @@ function AddFeed() {
   );
 }
 
-export default AddFeed;
+export default FeedComponent;

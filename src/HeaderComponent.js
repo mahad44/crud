@@ -26,17 +26,32 @@ class Header extends Component {
           <Collapse isOpen={this.state.isNavOpen} navbar>
           <Nav navbar className="item mr-auto nav-bar w-nav-menu">
             <NavItem>
-                <NavLink className="nav-link" to="/about"><span className="fa fa-home fa-lg"></span>Home</NavLink>
+                <NavLink className="nav-link" to="/"><span className="fa fa-home fa-lg"></span>Home</NavLink>
             </NavItem>
             <NavItem>
                 <NavLink className="nav-link" to="/products"><span className="fa fa-list fa-lg"></span>Products</NavLink>
             </NavItem>
-            <NavItem>
+            
+            {localStorage.getItem("isAuthenticated")==null?(
+              <NavItem>
+              <NavLink className="nav-link logout" to="/login"><span className="fa fa-sign-in fa-lg "></span>Login</NavLink>
+             </NavItem>
+            ):(
+              <Nav navbar className="item mr-auto nav-bar w-nav-menu">
+              <NavItem>
                 <NavLink className="nav-link" to="/cart"><span className="fa fa-shopping-cart fa-lg align-right shoppingcart"></span>Cart</NavLink>
             </NavItem>
-            <NavItem>
+
+              <NavItem>
                 <NavLink className="nav-link" to="/profile"><span className="fa fa-user fa-lg "></span>My Profile</NavLink>
             </NavItem>
+
+             <NavItem>
+             <NavLink className="nav-link logout" to="/logout"><span className="fa fa-sign-out fa-lg "></span>Logout</NavLink>
+            </NavItem>
+            </Nav>
+            )}
+           
           </Nav>
           </Collapse>
           </div>

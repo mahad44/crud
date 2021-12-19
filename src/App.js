@@ -3,9 +3,11 @@ import './App.css';
 import About from './About.js';
 import Login from './Login.js';
 import Register from './Register.js';
+import Logout from './logout.js';
 import Addproducts from './Addproducts.js';
 import Productdetail from './Productdetail';
 import Editproducts from './EditProduct';
+import AddFeed from './AddFeed';
 import Productdetailprofile from './Productdetailprofile';
 import Cart from './cart';
 import Edit from './Edit.js';
@@ -15,6 +17,7 @@ import Profile from './Profile.js';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'react-credit-cards/es/styles-compiled.css';
 import React, {useState,useEffect} from 'react';
+import ProtectedRoute from './ProtectedRoute.js';
 import { useHistory } from 'react-router-dom';
 import { BrowserRouter , Route, Link, Switch,Redirect} from "react-router-dom";
 
@@ -25,18 +28,21 @@ function App() {
   <BrowserRouter>
   
   <Switch>
-  <Route path={"/"} exact component={Login} />
-    <Route path={"/about"} component={About} />
+  <Route path={"/"} exact component={About} />
+    <Route path={"/login"} component={Login} />
     <Route path={"/edit"} component={Edit} />
-    <Route path={"/editprofile"} component={EditProfile} />
+    <ProtectedRoute path={"/editprofile"} component={EditProfile} />
     <Route path={"/register"} component={Register} />
     <Route path={"/products"} component={Products} />
-    <Route path={"/addproducts"} component={Addproducts} />
+    <ProtectedRoute path={"/addproducts"} component={Addproducts} />
     <Route path={"/productdetail"} component={Productdetail} />
-    <Route path={"/editproduct"} component={Editproducts} />
-    <Route path={"/productdetailprofile"} component={Productdetailprofile} />
-    <Route path={"/profile"} exact component={Profile} />
-    <Route path={"/cart"} component={Cart} />
+    <ProtectedRoute path={"/editproduct"} component={Editproducts} />
+    <ProtectedRoute path={"/productdetailprofile"} component={Productdetailprofile} />
+    <ProtectedRoute path={"/profile"} exact component={Profile} />
+    <ProtectedRoute path={"/cart"} component={Cart} />
+    <ProtectedRoute path={"/addfeed"} component={AddFeed} />
+    <Route path={"/logout"} component={Logout} />
+
 
 
   </Switch>

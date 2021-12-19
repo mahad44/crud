@@ -10,7 +10,6 @@ import {
   PaginationLink,
 } from "reactstrap";
 import Header from "./HeaderComponent";
-import AddFeed from "./AddFeedComponent";
 import Carousel from "./CarouselComponent";
 import ModalComponent from "./EditModalComponent";
 import EdiText from "react-editext";
@@ -44,7 +43,6 @@ const Poductdetailprofile = (props) => {
 
   async function remove() {
     const token = localStorage.getItem("token");
-    localStorage.setItem('item',item);
 
     console.log("item",item._id)
 

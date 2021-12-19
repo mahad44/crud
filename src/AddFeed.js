@@ -19,7 +19,7 @@ import {
   BreadcrumbItem,
 } from "reactstrap";
 
-const Addproducts=(props) =>{
+const AddFeed=(props) =>{
   const [products, setProducts] = useState([]);
   const [token1, setToken] = useState("");
   const [userid, setUserid] = useState("");
@@ -98,30 +98,15 @@ const Addproducts=(props) =>{
 
     <div className="col-sm-8">
       <div className="create">
-        <h1>Add Product</h1>
+        <h1>Add Feed</h1>
         <form onSubmit={()=>handleSubmitFile()} className="form">
-          <label>Product Name</label>
-          <input type="text" 
+          <label>Feed Text</label>
+          <input type="textarea" 
           name="productname" 
-          value={productname} 
           onChange= {(e) => setProductname(e.target.value)}/>
-          <label>Price </label>
-          <input type="number" 
-          name="price" 
-          min="0"
-          value = {productprice}
-          onChange={(e) => setProductprice(e.target.value)}/>
 
-        <label>Quantity </label>
-          <input type="number" 
-          name="quantity" 
-          min="0"
-          value = {quantity}
-          onChange={(e) => setQuantity(e.target.value)}/>
-
-          <label> Cateogry </label>
+          <label> Add Product  </label>
           <select
-          value = {productcategory}
           onChange = {(e) => setProductcategory(e.target.value)}>
             <option value="none">Category</option>
             <option value="Electronic">Electronic</option>
@@ -144,4 +129,4 @@ const Addproducts=(props) =>{
   );
 }
 
-export default Addproducts;
+export default AddFeed;

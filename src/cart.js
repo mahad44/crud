@@ -32,7 +32,9 @@ import {
 } from "reactstrap";
 
 function Cart() {
-  const [carts, setCarts] = useState([]);
+  if(localStorage.getItem("isAuthenticated")==null){<Redirect to="/login"/>}
+  
+    const [carts, setCarts] = useState([]);
   //const [total, setTotal] = useState(0);
   const [boolean, setBoolean] = useState(false);
   const [checkoutboolean, setCheckoutboolean] = useState(false);
@@ -58,7 +60,7 @@ function Cart() {
       );
       let result = await response.json();
       setCarts(result.cart);
-      console.warn("received api", carts);
+      //console.warn("received api", carts);
     }
 
     fetchCart();
@@ -68,7 +70,7 @@ function Cart() {
 
   async function remove() {
 
-    console.log("cart",product)
+    //console.log("cart",product)
     const token = localStorage.getItem("token");
     let response = await fetch(
       `http://localhost:4000/users//deletecart/${cartproduct}`,
@@ -83,6 +85,27 @@ function Cart() {
     );
     let result = await response.json();
     noRefCheck()
+
+  }
+
+  async function removeAll() {
+
+    //console.log("cart",product)
+    const token = localStorage.getItem("token");
+    const userid = localStorage.getItem("userid");
+
+    let response = await fetch(
+      `http://localhost:4000/users//deleteallcart/${userid}`,
+      {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+          Accept: "application/json",
+        },
+      }
+    );
+    let result = await response.json();
 
   }
 
@@ -116,11 +139,11 @@ function removeProduct(cart){
         let id=cart.product;
         let quantity=cart.quantity;
         let item={quantity}
+       // setCartproduct(cart._id);
+        removeAll();
         checkoutAll(id,item,cart._id);
        //setProduct(cart.id);
-       product=cart._id;
-       console.log("product",product)
-        remove();
+      // product=cart._id;
 
 
       })}
@@ -129,7 +152,8 @@ function removeProduct(cart){
 
   async function checkoutAll(id, item,cart){
 
-    
+   
+
     const token = localStorage.getItem("token");
 
     let response = await fetch(
@@ -225,6 +249,7 @@ function removeProduct(cart){
         </div>
     </div>
   );
+      
 }
 
 export default Cart;
