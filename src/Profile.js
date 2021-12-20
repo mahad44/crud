@@ -13,6 +13,10 @@ import {
   NavbarBrand,
   NavbarToggler,
   Collapse,
+  Card,
+  CardText,
+  CardBody,
+  CardTitle,
   NavItem,
   Jumbotron,
   Form,
@@ -27,8 +31,11 @@ function Profile() {
   const [token, setToken] = useState("");
   const [user, setUser] = useState();
   const [products, setProducts] = useState([]);
+  const [feeds, setFeeds] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
+  const [feedPage, setFeedpage] = useState(1);
   const [searchtext, setSearchtext] = useState("");
+  const [productboolean, setProductboolean] = useState(true);
 
 
   let hist = useHistory();
@@ -73,9 +80,27 @@ function Profile() {
       // console.warn("received user", user);
     }
 
+    async function fetchFeeds() {
+      let response = await fetch(
+        `http://localhost:4000/users/myfeeds/${userid}?page=${feedPage}`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+            Accept: "application/json",
+          },
+        }
+      );
+      let result = await response.json();
+      setFeeds(result.feed);
+
+    }
+
+    fetchFeeds();
     fetchUser();
     fetchProducts();
-  },[currentPage]);
+  },[currentPage,feedPage]);
 
   async function search() {
     /**  setBoolean(
@@ -105,10 +130,20 @@ function Profile() {
     setCurrentPage(selectedPage);
   }
 
+  function handleSelectedFeed(selectedPage) {
+    setFeedpage(selectedPage);
+  }
+
   function details(item) {
     localStorage.setItem("item", JSON.stringify(item));
     hist.push("/productdetailprofile", item);
   }
+
+  function feedDetails(item) {
+    localStorage.setItem("feed", JSON.stringify(item));
+    hist.push("/feeddetailprofile", item);
+  }
+
   function addproduct() {
     hist.push("/addproducts");
   }
@@ -117,6 +152,9 @@ function Profile() {
     hist.push("/addfeed");
   }
 
+  function togglefunct(){
+    setProductboolean(!productboolean)
+  }
   return (
     <div>
       <Header />
@@ -145,6 +183,8 @@ function Profile() {
               {" "}
               <a class="btn btn-primary mr-1">Edit Profile</a>
             </Link>
+            <a class="btn btn-primary mr-1" onClick={()=>addproduct()}> Add Product</a>
+              <a class="btn btn-primary mr-1" onClick={()=>addfeed()}> Add Feed</a>
           </div>
         </div>
       </div>
@@ -152,11 +192,16 @@ function Profile() {
 
       <div className="d-flex justify-content-center">
       
-              <a class="btn btn-primary mr-1" onClick={()=>addproduct()}> Add Product</a>
-              <a class="btn btn-primary mr-1" onClick={()=>addfeed()}> Add Feed</a>
+      <a className="button3" onClick={()=>togglefunct()}>
+             My Products
+          </a>
+          <a className="button3" onClick={()=>togglefunct()}>
+             My Feeds
+          </a>
 
       </div>
-
+      {productboolean  ?(
+       <div>
       <div class="search col-lg-3 col-sm-3 d-flex justify-content-end">
       <div class="input-group w-100">
           <input
@@ -176,7 +221,7 @@ function Profile() {
             </button>
           </div>
           </div>
-
+     
       <div className="main_content">
         {products &&
           products.map((item) => {
@@ -209,6 +254,43 @@ function Profile() {
           defaultActivePage={1}
         />
       </div>
+      </div>
+     ):(<div>
+       {feeds && feeds.map((item)=>{
+        return(
+          <div>
+      <Card key={item.id} >
+        <CardBody>
+          <CardTitle tag="h5">{item.text}</CardTitle>
+        <img alt="Card image cap" src={item.feedImage} width="300px" height="300px" />
+        </CardBody>
+
+        <CardBody>
+          <CardText>
+          
+          </CardText>
+          
+          <a className="button3" onClick={()=>feedDetails(item)}>
+                    View Details
+          </a>
+
+          
+         
+        </CardBody>
+      </Card>
+      </div>
+      )
+      })}
+      <div className="pagination">
+        <PaginationComponent
+          totalItems={50}
+          pageSize={4}
+          onSelect={handleSelectedFeed}
+          maxPaginationNumbers={9}
+          defaultActivePage={1}
+        />
+      </div>
+     </div>)}
     </div>
   );
 }

@@ -44,13 +44,13 @@ const About=(props) =>{
 
       const name1 = localStorage.getItem("name");
       setName(name1);
-      console.log("name:::",name)
+     // console.log("name:::",name)
     
       //console.log("userid:",userid);
       //console.log("token",token);
 
       let response = await fetch(
-        `http://localhost:4000/users/myfeeds/${userid}`,
+        `http://localhost:4000/users/allfeeds`,
         {
           method: "GET",
           headers: {
@@ -61,7 +61,7 @@ const About=(props) =>{
         }
       );
       let result = await response.json();
-      setFeeds(result.feed);
+      setFeeds(result.feedList);
      // console.log("result",result)
      // console.warn("received api", feeds);
      
@@ -92,6 +92,25 @@ const About=(props) =>{
     localStorage.setItem('prevtext',text);
 
     hist.push("/edit", {id:id,token:token,prevtext:text});  
+
+  }
+
+  async function gotoproduct(product){
+    let response = await fetch(
+      `http://localhost:4000/users/product/${product}`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+          Accept: "application/json",
+        },
+      }
+    );
+    let item = await response.json()
+    console.log("item",item.product)
+    localStorage.setItem('item',JSON.stringify(item.product[0]));
+    hist.push("/productdetail", item.product);
   }
 
   return (
@@ -106,28 +125,36 @@ const About=(props) =>{
       <Card key={item.id} >
         <CardBody>
           <CardTitle tag="h5">{item.text}</CardTitle>
-          <CardSubtitle className="mb-2 text-muted" tag="h6">
-          {item.name}
-          </CardSubtitle>
+        <img alt="Card image cap" src={item.feedImage} width="300px" height="300px" />
         </CardBody>
-        <img alt="Card image cap" src="logo.jpg" width="100px" height="100px" />
+
         <CardBody>
           <CardText>
           
           </CardText>
           
+          <a className="button3" onClick={() => edit(item._id,item.text)}>
+                    View Details
+          </a>
+
+          <a className="button3" onClick={() => gotoproduct(item.product)}>
+                    Go to Product
+          </a>
+          {/*
           <Button onClick={() => edit(item._id,item.text)}>
             Edit
           </Button>
           <Button color="danger"  onClick={() => deleteFeed(item._id)}>
            Delete
           </Button>
+          */}
         </CardBody>
       </Card>
       </div>
       )
       })}
       </div>
+      {/*
       <div className="col-sm-6 offset-sm-3">
         <h1> Successful</h1>
         
@@ -147,7 +174,7 @@ const About=(props) =>{
       <EdiText
         type='text'
         value='What is real? How do you define real?'
-      />
+        />*/}
     </div>
   );
 }

@@ -7,8 +7,10 @@ import Logout from './logout.js';
 import Addproducts from './Addproducts.js';
 import Productdetail from './Productdetail';
 import Editproducts from './EditProduct';
+import Editfeed from './EditFeed';
 import AddFeed from './AddFeed';
 import Productdetailprofile from './Productdetailprofile';
+import Feeddetailprofile from './Feeddetailprofile';
 import Cart from './cart';
 import Edit from './Edit.js';
 import EditProfile from './EditProfile.js';
@@ -37,7 +39,9 @@ function App() {
     <ProtectedRoute path={"/addproducts"} component={Addproducts} />
     <Route path={"/productdetail"} component={Productdetail} />
     <ProtectedRoute path={"/editproduct"} component={Editproducts} />
+    <ProtectedRoute path={"/editfeed"} component={Editfeed} />
     <ProtectedRoute path={"/productdetailprofile"} component={Productdetailprofile} />
+    <ProtectedRoute path={"/feeddetailprofile"} component={Feeddetailprofile} />
     <ProtectedRoute path={"/profile"} exact component={Profile} />
     <ProtectedRoute path={"/cart"} component={Cart} />
     <ProtectedRoute path={"/addfeed"} component={AddFeed} />

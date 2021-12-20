@@ -53,7 +53,7 @@ function FeedComponent() {
     <div>
       <Card>
       <CardBody>
-      <Form>
+     {/* <Form>
         <FormGroup>
           <Label for="exampleText">Add Your Post</Label>
           <Input id="exampleText" name="text" type="textarea" 
@@ -66,7 +66,7 @@ function FeedComponent() {
         >
           <a>Post</a>
         </button>
-      </Form>
+        </Form>*/}
       </CardBody>
       </Card>
     </div>

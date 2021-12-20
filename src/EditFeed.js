@@ -19,14 +19,25 @@ import {
   BreadcrumbItem,
 } from "reactstrap";
 
-const AddFeed=(props) =>{
+const Editfeed=(props) =>{
   const [products, setProducts] = useState([]);
   const [token1, setToken] = useState("");
+  const [name, setName] = useState("");
   const [fileInputState, setFileInputState]= useState("");
   const [selectedFile, setSelectedFile] = useState("");
   const [previewSource, setPreviewSource] = useState("");
-  const [text, setText] = useState("");
+  const [productname, setProductname] = useState("");
+  const [productprice, setProductprice] = useState("");
+  const [productcategory, setProductcategory]= useState("");
+  const [quantity, setQuantity]= useState("");
   const [product, setProduct]= useState("");
+  const [text, setText] = useState("");
+
+
+
+  const item=props.location.item;   
+ 
+
 
 
   let hist=useHistory();
@@ -34,34 +45,33 @@ const AddFeed=(props) =>{
   const userid=localStorage.getItem("userid");
   const token=localStorage.getItem("token");
 
-
   useEffect(() => {
     async function fetchProducts() {
-      //const token1 = props.location.state.obj.token;
-      const token1 = localStorage.getItem("token");
-      setToken(token1);
-      console.log("token", token);
+        //const token1 = props.location.state.obj.token;
+        const token1 = localStorage.getItem("token");
+        setToken(token1);
+        console.log("token", token);
+  
+        let response = await fetch(
+          `http://localhost:4000/users/productsbyuser/${userid}`,
+          {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`,
+              Accept: "application/json",
+            },
+          }
+        );
+        let result = await response.json();
+        setProducts(result.product);
+        //console.log("result",result)
+        console.warn("received api", products);
+      }
+      fetchProducts();
+        
+})
 
-      let response = await fetch(
-        `http://localhost:4000/users/productsbyuser/${userid}`,
-        {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-            Accept: "application/json",
-          },
-        }
-      );
-      let result = await response.json();
-      setProducts(result.product);
-      //console.log("result",result)
-      console.warn("received api", products);
-    }
-    fetchProducts();
-  });
-
- console.log(userid);
   const handleFileInputChange = (e) =>  {
     const file = e.target.files[0];
     previewFile(file);
@@ -77,19 +87,21 @@ const AddFeed=(props) =>{
 
   const handleSubmitFile = (e) => {
     console.log("submitting");
-    if(!previewSource) return;
-     else {uploadImage(previewSource);
-      hist.goBack();
-      <Redirect to='/profile' />;}
+    //if(!previewSource) return;
+   uploadImage(previewSource);
+     
     
   }
 
   const uploadImage = async (base64EncodedImage) => {
-     console.log(base64EncodedImage);
-     console.log(userid);
+    const token=localStorage.getItem("token");
+  //  const item=localStorage.getItem("item");
+
+    console.log("item: ",item._id)
+     
      try{
-       await fetch(`http://localhost:4000/users//uploadfeed`, {
-         method : 'POST',
+       await fetch(`http://localhost:4000/users/updatefeed/${item._id}`, {
+         method : 'PUT',
          body: JSON.stringify({image : base64EncodedImage, text: text, 
           product:product}),
          headers: {'Content-type': 'application/json',
@@ -100,9 +112,9 @@ const AddFeed=(props) =>{
      } catch(error){
        console.error(error);
      }
-     console.log("feed added");
-     <Redirect to='/profile' />;
-     hist.goBack();
+     console.log("product added");
+     hist.push("/profile");
+     //<Redirect to='/profile' />;
   }
   
   return (
@@ -120,13 +132,14 @@ const AddFeed=(props) =>{
 
     <div className="col-sm-8">
       <div className="create">
-        <h1>Add Feed</h1>
+        <h1>Edit Feed</h1>
         <br></br>
         <form onSubmit={()=>handleSubmitFile()} className="form">
           <label>Feed Text</label>
           <input type="textarea" 
           name="text"
           className="feedtext"
+          placeholder={item && item.text}
           onChange= {(e) => setText(e.target.value)}/>
 
           <label> Add Product  </label>
@@ -161,4 +174,4 @@ const AddFeed=(props) =>{
   );
 }
 
-export default AddFeed;
+export default Editfeed;
