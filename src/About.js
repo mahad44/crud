@@ -124,18 +124,12 @@ const About=(props) =>{
           <div>
       <Card key={item.id} >
         <CardBody>
-          <CardTitle tag="h5">{item.text}</CardTitle>
         <img alt="Card image cap" src={item.feedImage} width="300px" height="300px" />
-        </CardBody>
-
-        <CardBody>
-          <CardText>
-          
-          </CardText>
-          
-          <a className="button3" onClick={() => edit(item._id,item.text)}>
+        <br></br>
+        <CardTitle tag="h5">{item.text}</CardTitle>
+          {/*<a className="button3" onClick={() => edit(item._id,item.text)}>
                     View Details
-          </a>
+        </a>*/}
 
           <a className="button3" onClick={() => gotoproduct(item.product)}>
                     Go to Product
